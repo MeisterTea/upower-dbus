@@ -162,6 +162,21 @@ impl UPower {
         Ok(result)
     }
 
+    /// The current state of the battery
+    ///
+    /// 0: Unknown
+	/// 1: Charging
+	/// 2: Discharging
+	/// 3: Empty
+	/// 4: Fully charged
+	/// 5: Pending charge
+	/// 6: Pending discharge
+    pub fn get_state(&self) -> Result<u32, UPowerError> {
+        let result = device_property!(dev => self, "State", u32)?;
+
+        Ok(result)
+    }
+
     /// Amount of energy (measured in Wh) currently available in the power source.
     pub fn get_energy(&self) -> Result<f64, UPowerError> {
         let result = device_property!(dev => self, "Energy", f64)?;
